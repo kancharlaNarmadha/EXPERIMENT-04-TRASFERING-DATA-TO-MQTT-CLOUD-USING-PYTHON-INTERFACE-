@@ -1,11 +1,11 @@
-### NAME:
-### ROLL NO :
-### DEPARTMENT 
-### DATE
+### NAME: Kancharla Narmadha
+### ROLL NO : 212222110016
+### DEPARTMENT : CSE(IOT)
+### DATE : 
 
 
 
-## EXPERIMENT-04-TRASFERING-DATA-TO-MQTT-CLOUD-USING-PYTHON-INTERFACE-
+## EXPERIMENT 04 TRASFERING DATA TO MQTT CLOUD USING PYTHON INTERFACE
 
 
 
@@ -143,10 +143,56 @@ Check if the message appears in the HiveMQ Web Client.
 
 
 
+import paho.mqtt.client as mqtt
+import time
+
+# HiveMQ Cloud credentials
+BROKER = "359f43e9448d4f6ebc5011e7c24dc49b.s1.eu.hivemq.cloud"  # Updated HiveMQ Cloud instance URL
+PORT = 8884  # Secure WebSocket port
+TOPIC = "sensor/temperature"
+USERNAME = "Kancharla_Narmadha"  # Replace with your HiveMQ Cloud username
+PASSWORD = "Linzz_129"  # Replace with your HiveMQ Cloud password
+
+# Fixed temperature value
+TEMPERATURE_VALUE = 25.5
+
+# Callback when the client connects to the broker
+def on_connect(client, userdata, flags, rc, properties=None):
+    if rc == 0:
+        print("Connected to HiveMQ Cloud successfully")
+    else:
+        print(f"Connection failed with code {rc}")
+
+# Create MQTT client and set WebSocket transport
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, transport="websockets")
+client.username_pw_set(USERNAME, PASSWORD)
+client.tls_set()  # Enable TLS for secure WebSockets
+client.on_connect = on_connect
+
+# Connect to HiveMQ Cloud using WebSocket
+client.connect(BROKER, PORT, 60)
+client.loop_start()
+
+# Publish temperature value repeatedly every 5 seconds
+try:
+    while True:
+        client.publish(TOPIC, TEMPERATURE_VALUE)
+        print(f"Published temperature: {TEMPERATURE_VALUE} to topic: {TOPIC}")
+        time.sleep(5)  # Adjust interval as needed
+except KeyboardInterrupt:
+    print("Stopping MQTT client...")
+    client.loop_stop()
+    client.disconnect()
+
 
 ]
 
 ### OUTPUT SCREENSHOTS
+
+![mqtt1](https://github.com/user-attachments/assets/88cc18cc-1db3-4932-8dd1-7b95c2c07069)
+
+![mqtt2](https://github.com/user-attachments/assets/b44295d1-01c4-48af-856c-62e6b662bfcd)
+
 
 
 
