@@ -138,7 +138,7 @@ Run the Python script.
 
 Check if the message appears in the HiveMQ Web Client.
 ## PROGRAM
-[
+```
 
 
 
@@ -185,7 +185,7 @@ except KeyboardInterrupt:
     client.disconnect()
 
 
-]
+```
 
 ### OUTPUT SCREENSHOTS
 
